@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { PdbLoaderService } from '../pdb/pdb.module';
 
 @Component({
   selector: 'app-heroes',
@@ -7,7 +8,9 @@ import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 })
 export class HeroesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private loaderService: PdbLoaderService
+  ) { }
   hero = 'Thor';
   ngOnInit() {
   }
@@ -18,7 +21,8 @@ export class HeroesComponent implements OnInit {
   @ViewChild('lazyContainer', { read: ViewContainerRef }) 
   container: ViewContainerRef;
 
-  public loadLazy() {
+  public async loadLazy() {
     console.log('Load lazy');
+    this.loaderService.loadIntoContainer(this.container, 'first');
   }
 }
