@@ -1,6 +1,6 @@
 import { Injectable, SystemJsNgModuleLoader, Injector, ViewContainerRef, NgModuleFactory, NgModuleRef, ComponentRef } from "@angular/core";
-import { FirstPdbModule } from "./first/first.module";
 import { BasePdbEntryComponent } from "./common/base.pdb.component";
+import { BasePdbModule } from "./common/base.pdb.module";
 
 const pdbModulePathResolver = (pdb) => {
     return `./${pdb}/${pdb}.module#${pdb.charAt(0).toUpperCase()}${pdb.substr(1)}PdbModule`;
@@ -14,7 +14,7 @@ export class PdbLoaderService {
         const modulePath = pdbModulePathResolver(pdb);
         const moduleFactory: NgModuleFactory<any> = await this.loader.load(modulePath);
         const moduleRef: NgModuleRef<any> = moduleFactory.create(this.injector);
-        const module: FirstPdbModule = moduleRef.instance;
+        const module: BasePdbModule = moduleRef.instance;
         const entryComponent = module.getPdbEntryComponent();
         const compFactory = moduleRef.componentFactoryResolver.resolveComponentFactory(entryComponent);
 
