@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { PdbLoaderService } from '../pdb/pdb.module';
+import { BasePdbEntryComponent } from '../pdb/common/base.pdb.component';
 
 @Component({
   selector: 'app-heroes',
@@ -23,6 +24,7 @@ export class HeroesComponent implements OnInit {
 
   public async loadLazy() {
     console.log('Load lazy');
-    this.loaderService.loadIntoContainer(this.container, 'first');
+    const entryComponent: BasePdbEntryComponent = await this.loaderService.loadIntoContainer(this.container, this.pdb);
+    entryComponent.question = { id: `QID_${Date.now()}`, title: `Question ${Math.random()* 100}`};
   }
 }
